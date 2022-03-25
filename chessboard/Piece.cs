@@ -16,6 +16,7 @@ namespace Chess.Chessboard
             Chessboard = chessboard;
             QtnMoves = 0;
         }
+
     }
 
 }

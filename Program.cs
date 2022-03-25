@@ -9,6 +9,8 @@ namespace Chess
         {
             Chessb chessboard = new Chessb(8, 8);
 
+            Screen.PrintChessboard(chessboard);
+
             Console.ReadLine();
         }
     }

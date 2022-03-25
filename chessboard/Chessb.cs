@@ -12,5 +12,9 @@ namespace Chess.Chessboard
             Rows = rows;
             Pieces = new Piece[Rows, Columns];
         }
+        public Piece piece(int row, int column)
+        {
+            return Pieces[row, column];
+        }
     }
 }
