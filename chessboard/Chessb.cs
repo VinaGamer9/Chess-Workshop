@@ -1,18 +1,16 @@
 namespace Chess.Chessboard
 {
-    class Position
+    class Chessb
     {
         public int Columns { get; set; }
         public int Rows { get; set; }
+        private Piece[,] Pieces;
 
-        public Position(int columns, int rows)
+        public Chessb(int columns, int rows)
         {
             Columns = columns;
             Rows = rows;
-        }
-        public override string ToString()
-        {
-            return $"Position: {Columns}, {Rows}";
+            Pieces = new Piece[Rows, Columns];
         }
     }
 }
