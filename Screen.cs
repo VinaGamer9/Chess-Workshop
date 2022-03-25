@@ -12,10 +12,10 @@ namespace Chess
                 for (int j = 0; j < chessboard.Columns; j++)
                 {
                     if (chessboard.piece(i, j) == null)
-                    { Console.Write("-"); }
+                    { Console.Write("- "); }
                     else
                     {
-                        Console.WriteLine(chessboard.piece(i, j) + " ");
+                        Console.Write(chessboard.piece(i, j) + " ");
                     }
                 }
                 System.Console.WriteLine("");

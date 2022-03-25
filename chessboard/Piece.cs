@@ -9,9 +9,9 @@ namespace Chess.Chessboard
         public int QtnMoves { get; private set; }
         public Chessb Chessboard { get; protected set; }
 
-        public Piece(Position position, Color color, Chessb chessboard)
+        public Piece(Color color, Chessb chessboard)
         {
-            Position = position;
+            Position = null;
             Color = color;
             Chessboard = chessboard;
             QtnMoves = 0;
