@@ -11,15 +11,11 @@ namespace Chess
         {
             try
             {
-                Chessb chessboard = new Chessb(8, 8);
+                ChessPosition pos = new ChessPosition('c', 7);
 
-                chessboard.insertPiece(new Tower(Color.Black, chessboard), new Position(0, 0));
-                chessboard.insertPiece(new Tower(Color.Black, chessboard), new Position(1, 3));
-                chessboard.insertPiece(new King(Color.Black, chessboard), new Position(2, 4));
+                Console.WriteLine(pos);
 
-                Screen.PrintChessboard(chessboard);
-
-                Console.ReadLine();
+                Console.WriteLine(pos.toPosition());
             }
             catch (ChessboardException e) { Console.WriteLine(e.Message); }
         }

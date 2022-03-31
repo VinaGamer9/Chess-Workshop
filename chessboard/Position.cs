@@ -2,17 +2,17 @@ namespace Chessboard
 {
     class Position
     {
-        public int Columns { get; set; }
-        public int Rows { get; set; }
+        public int columns { get; set; }
+        public int rows { get; set; }
 
         public Position(int columns, int rows)
         {
-            Columns = columns;
-            Rows = rows;
+            this.columns = columns;
+            this.rows = rows;
         }
         public override string ToString()
         {
-            return $"Position: {Columns}, {Rows}";
+            return $"Position: {columns}, {rows}";
         }
     }
 }

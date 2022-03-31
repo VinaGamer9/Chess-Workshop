@@ -2,23 +2,23 @@ namespace Chessboard
 {
     class Chessb
     {
-        public int Columns { get; set; }
-        public int Rows { get; set; }
-        private Piece[,] Pieces;
+        public int columns { get; set; }
+        public int rows { get; set; }
+        private Piece[,] pieces;
 
         public Chessb(int columns, int rows)
         {
-            Columns = columns;
-            Rows = rows;
-            Pieces = new Piece[Rows, Columns];
+            this.columns = columns;
+            this.rows = rows;
+            pieces = new Piece[this.rows, this.columns];
         }
         public Piece piece(int row, int column)
         {
-            return Pieces[row, column];
+            return pieces[row, column];
         }
         public Piece piece(Position pos)
         {
-            return Pieces[pos.Rows, pos.Columns];
+            return pieces[pos.rows, pos.columns];
         }
         public bool hasPiece(Position pos)
         {
@@ -29,12 +29,12 @@ namespace Chessboard
         {
             if (hasPiece(pos))
             { throw new ChessboardException("already another piece in this position"); }
-            Pieces[pos.Rows, pos.Columns] = p;
-            p.Position = pos;
+            pieces[pos.rows, pos.columns] = p;
+            p.position = pos;
         }
         public bool positionValid(Position pos)
         {
-            if (pos.Rows < 0 || pos.Rows > Rows || pos.Columns < 0 || pos.Columns > Columns)
+            if (pos.rows < 0 || pos.rows > rows || pos.columns < 0 || pos.columns > columns)
             {
                 return false;
             }

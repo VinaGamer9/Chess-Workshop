@@ -7,9 +7,9 @@ namespace Chess
     {
         public static void PrintChessboard(Chessb chessboard)
         {
-            for (int i = 0; i < chessboard.Rows; i++)
+            for (int i = 0; i < chessboard.rows; i++)
             {
-                for (int j = 0; j < chessboard.Columns; j++)
+                for (int j = 0; j < chessboard.columns; j++)
                 {
                     if (chessboard.piece(i, j) == null)
                     { Console.Write("- "); }
