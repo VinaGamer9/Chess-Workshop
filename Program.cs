@@ -1,7 +1,7 @@
 ﻿using System;
-using Chess.Chessboard;
-using Chess.Chessboard.Enums;
-using Chess.ChessOnion;
+using Chessboard;
+using Chessboard.Enums;
+using ChessOnion;
 
 namespace Chess
 {

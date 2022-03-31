@@ -1,4 +1,4 @@
-namespace Chess.Chessboard
+namespace Chessboard
 {
     class Chessb
     {

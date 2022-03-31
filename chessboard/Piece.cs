@@ -1,6 +1,6 @@
-using Chess.Chessboard.Enums;
+using Chessboard.Enums;
 
-namespace Chess.Chessboard
+namespace Chessboard
 {
     class Piece
     {

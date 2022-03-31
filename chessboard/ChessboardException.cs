@@ -1,6 +1,6 @@
 using System;
 
-namespace Chess.Chessboard
+namespace Chessboard
 {
     class ChessboardException : Exception
     {

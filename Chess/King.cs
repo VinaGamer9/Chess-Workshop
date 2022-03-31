@@ -1,7 +1,7 @@
-using Chess.Chessboard;
-using Chess.Chessboard.Enums;
+using Chessboard;
+using Chessboard.Enums;
 
-namespace Chess.ChessOnion
+namespace ChessOnion
 {
     class King : Piece
     {
