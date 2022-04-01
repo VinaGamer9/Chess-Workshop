@@ -22,6 +22,13 @@ namespace Chess
 
                     Console.Write("\nType origin:");
                     Position origin = Screen.readChessPosition().toPosition();
+
+                    bool[,] possiblePositions = game.chess.piece(origin).possibleMoves();
+
+                    Console.Clear();
+                    Screen.PrintChessboard(game.chess, possiblePositions);
+
+
                     Console.Write("\nType destiny:");
                     Position destiny = Screen.readChessPosition().toPosition();
 

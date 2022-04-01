@@ -45,7 +45,7 @@ namespace Chessboard
         }
         public bool positionValid(Position pos)
         {
-            if (pos.rows < 0 || pos.rows > rows || pos.columns < 0 || pos.columns > columns)
+            if (pos.rows < 0 || pos.rows >= rows || pos.columns < 0 || pos.columns >= columns)
             {
                 return false;
             }

@@ -10,9 +10,14 @@ namespace Chessboard
             this.columns = columns;
             this.rows = rows;
         }
+        public void defineValues(int row, int column)
+        {
+            this.rows = row;
+            this.columns = column;
+        }
         public override string ToString()
         {
-            return $"rows:{rows}, columns:{columns}";
+            return $"{rows}, {columns}";
         }
     }
 }
