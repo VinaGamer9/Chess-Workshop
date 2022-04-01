@@ -5,7 +5,7 @@ namespace ChessOnion
 {
     class King : Piece
     {
-        public King(Color color, Chessb chessboard)
+        public King(Chessb chessboard, Color color)
         : base(color, chessboard)
         {
 

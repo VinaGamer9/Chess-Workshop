@@ -7,24 +7,37 @@ namespace Chess
 {
     class Program
     {
+
         static void Main(string[] args)
         {
             try
             {
-                Chessb chessboard = new Chessb(8, 8);
 
-                chessboard.insertPiece(new Tower(Color.Black, chessboard), new Position(0, 0));
-                chessboard.insertPiece(new Tower(Color.Black, chessboard), new Position(1, 3));
-                chessboard.insertPiece(new King(Color.Black, chessboard), new Position(2, 4));
+                ChessGame game = new ChessGame();
 
-                chessboard.insertPiece(new Tower(Color.White, chessboard), new Position(5, 4));
-                chessboard.insertPiece(new King(Color.White, chessboard), new Position(6, 2));
+                while (!game.fineshed)
+                {
+                    Console.Clear();
+                    Screen.PrintChessboard(game.chess);
 
-                Screen.PrintChessboard(chessboard);
+                    Console.Write("\nType origin:");
+                    Position origin = Screen.readChessPosition().toPosition();
+                    Console.Write("\nType destiny:");
+                    Position destiny = Screen.readChessPosition().toPosition();
 
-                Console.ReadLine();
+                    game.moveMaker(origin, destiny);
+                }
+
+
             }
-            catch (ChessboardException e) { Console.WriteLine(e.Message); }
+            catch (ChessboardException e)
+            {
+                System.Console.WriteLine(e.Message);
+            }
+
+
         }
+
     }
+
 }

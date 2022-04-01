@@ -16,6 +16,10 @@ namespace Chessboard
             this.chessboard = chessboard;
             qtnMoves = 0;
         }
+        public void increaceQtnMoves()
+        {
+            qtnMoves++;
+        }
 
     }
 

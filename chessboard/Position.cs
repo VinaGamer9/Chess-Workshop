@@ -5,14 +5,14 @@ namespace Chessboard
         public int columns { get; set; }
         public int rows { get; set; }
 
-        public Position(int columns, int rows)
+        public Position(int rows, int columns)
         {
             this.columns = columns;
             this.rows = rows;
         }
         public override string ToString()
         {
-            return $"Position: {columns}, {rows}";
+            return $"rows:{rows}, columns:{columns}";
         }
     }
 }

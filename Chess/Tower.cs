@@ -5,7 +5,7 @@ namespace ChessOnion
 {
     class Tower : Piece
     {
-        public Tower(Color color, Chessb chessboard)
+        public Tower(Chessb chessboard, Color color)
         : base(color, chessboard)
         {
 

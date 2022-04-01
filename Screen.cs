@@ -1,5 +1,6 @@
 using System;
 using Chessboard;
+using ChessOnion;
 
 namespace Chess
 {
@@ -20,9 +21,16 @@ namespace Chess
                         Console.Write(" ");
                     }
                 }
-                System.Console.WriteLine("");
+                Console.WriteLine();
             }
             Console.WriteLine("  a b c d e f g h");
+        }
+        public static ChessPosition readChessPosition()
+        {
+            string s = Console.ReadLine();
+            char column = s[0];
+            int row = int.Parse(s[1] + "");
+            return new ChessPosition(column, row);
         }
         public static void printPiece(Piece piece)
         {

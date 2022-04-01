@@ -4,10 +4,10 @@ namespace ChessOnion
 {
     class ChessPosition
     {
-        public char column { get; set; }
+        public int column { get; set; }
         public int row { get; set; }
 
-        public ChessPosition(char column, int row)
+        public ChessPosition(int column, int row)
         {
             this.column = column;
             this.row = row;
