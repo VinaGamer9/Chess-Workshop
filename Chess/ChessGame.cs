@@ -8,8 +8,9 @@ namespace ChessOnion
     {
 
         public Chessb chess { get; private set; }
-        private int turn;
-        private Color currentPlayer;
+        public int turn { get; private set; }
+        public Color currentPlayer { get; private set; }
+
         public bool fineshed { get; private set; }
 
         public ChessGame()
@@ -27,7 +28,40 @@ namespace ChessOnion
             p.increaceQtnMoves();
             Piece catchedPiece = chess.removePiece(destiny);
             chess.insertPiece(p, destiny);
+            performsMove(origin, destiny);
 
+        }
+        public void performsMove(Position origin, Position destiny)
+        {
+            turn++;
+            changePlayer();
+        }
+        private void changePlayer()
+        {
+            if (currentPlayer == Color.White) { currentPlayer = Color.Black; }
+            else { currentPlayer = Color.White; }
+        }
+        public void validOriginPosition(Position pos)
+        {
+            if (chess.piece(pos) == null)
+            {
+                throw new ChessboardException("must select a piece for moves");
+            }
+            if (currentPlayer != chess.piece(pos).color)
+            {
+                throw new ChessboardException("The pice selected is not yours");
+            }
+            if (!chess.piece(pos).PossibleMovesExist())
+            {
+                throw new ChessboardException("not have any moves for this piece");
+            }
+        }
+        public void validDestinyPosition(Position origin, Position destiny)
+        {
+            if (!chess.piece(origin).canMoveTo(destiny))
+            {
+                throw new ChessboardException("Invalid destiny position");
+            }
         }
         public void setPieces()
         {

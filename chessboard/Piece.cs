@@ -20,6 +20,22 @@ namespace Chessboard
         {
             qtnMoves++;
         }
+        public bool PossibleMovesExist()
+        {
+            bool[,] mat = possibleMoves();
+            for (int i = 0; i < chessboard.rows; i++)
+            {
+                for (int j = 0; j < chessboard.columns; j++)
+                {
+                    if (mat[i, j]) { return true; }
+                }
+            }
+            return false;
+        }
+        public bool canMoveTo(Position pos)
+        {
+            return possibleMoves()[pos.rows, pos.columns];
+        }
 
         public abstract bool[,] possibleMoves();
 
