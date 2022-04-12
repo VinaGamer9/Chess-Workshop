@@ -20,8 +20,7 @@ namespace Chess
                     try
                     {
                         Console.Clear();
-                        Screen.PrintChessboard(game.chess);
-                        Console.WriteLine($"\nTurn: {game.turn} | Player: {game.currentPlayer}");
+                        Screen.printGame(game);
 
                         Console.Write("\nType origin:");
                         Position origin = Screen.readChessPosition().toPosition();
@@ -38,7 +37,7 @@ namespace Chess
 
                         game.validDestinyPosition(origin, destiny);
 
-                        game.moveMaker(origin, destiny);
+                        game.performsMove(origin, destiny);
                     }
                     catch (ChessboardException e)
                     {

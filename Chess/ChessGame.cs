@@ -1,4 +1,4 @@
-using System;
+using System.Collections.Generic;
 using Chessboard;
 using Chessboard.Enums;
 
@@ -12,14 +12,18 @@ namespace ChessOnion
         public Color currentPlayer { get; private set; }
 
         public bool fineshed { get; private set; }
+        private HashSet<Piece> pieces;
+        private HashSet<Piece> capturedPieces;
 
         public ChessGame()
         {
             chess = new Chessb(8, 8);
             turn = 1;
             currentPlayer = Color.White;
-            setPieces();
             fineshed = false;
+            pieces = new HashSet<Piece>();
+            capturedPieces = new HashSet<Piece>();
+            setPieces();
         }
 
         public void moveMaker(Position origin, Position destiny)
@@ -28,11 +32,16 @@ namespace ChessOnion
             p.increaceQtnMoves();
             Piece catchedPiece = chess.removePiece(destiny);
             chess.insertPiece(p, destiny);
-            performsMove(origin, destiny);
+            if (catchedPiece != null)
+            {
+                capturedPieces.Add(catchedPiece);
+            }
+
 
         }
         public void performsMove(Position origin, Position destiny)
         {
+            moveMaker(origin, destiny);
             turn++;
             changePlayer();
         }
@@ -63,22 +72,54 @@ namespace ChessOnion
                 throw new ChessboardException("Invalid destiny position");
             }
         }
+        public HashSet<Piece> catchedPieces(Color color)
+        {
+            HashSet<Piece> aux = new HashSet<Piece>();
+            foreach (Piece x in capturedPieces)
+            {
+                if (x.color == color)
+                {
+                    aux.Add(x);
+                }
+
+            }
+            return aux;
+        }
+        public HashSet<Piece> piecesInGame(Color color)
+        {
+            HashSet<Piece> aux = new HashSet<Piece>();
+            foreach (Piece x in pieces)
+            {
+                if (x.color == color)
+                {
+                    aux.Add(x);
+                }
+
+            }
+            aux.ExceptWith(catchedPieces(color));
+            return aux;
+        }
+        public void setNewPiece(char column, int row, Piece piece)
+        {
+            chess.insertPiece(piece, new ChessPosition(column, row).toPosition());
+            pieces.Add(piece);
+        }
         public void setPieces()
         {
-            Console.WriteLine(new ChessPosition('c', 3).toPosition());
-            chess.insertPiece(new Tower(chess, Color.White), new ChessPosition('c', 1).toPosition());
-            chess.insertPiece(new Tower(chess, Color.White), new ChessPosition('c', 2).toPosition());
-            chess.insertPiece(new Tower(chess, Color.White), new ChessPosition('d', 2).toPosition());
-            chess.insertPiece(new Tower(chess, Color.White), new ChessPosition('e', 1).toPosition());
-            chess.insertPiece(new Tower(chess, Color.White), new ChessPosition('e', 2).toPosition());
-            chess.insertPiece(new King(chess, Color.White), new ChessPosition('d', 1).toPosition());
 
-            chess.insertPiece(new Tower(chess, Color.Black), new ChessPosition('c', 7).toPosition());
-            chess.insertPiece(new Tower(chess, Color.Black), new ChessPosition('c', 8).toPosition());
-            chess.insertPiece(new Tower(chess, Color.Black), new ChessPosition('d', 7).toPosition());
-            chess.insertPiece(new Tower(chess, Color.Black), new ChessPosition('e', 7).toPosition());
-            chess.insertPiece(new Tower(chess, Color.Black), new ChessPosition('e', 8).toPosition());
-            chess.insertPiece(new King(chess, Color.Black), new ChessPosition('d', 8).toPosition());
+            setNewPiece('d', 1, new King(chess, Color.White));
+            setNewPiece('d', 2, new Tower(chess, Color.White));
+            setNewPiece('c', 1, new Tower(chess, Color.White));
+            setNewPiece('c', 2, new Tower(chess, Color.White));
+            setNewPiece('e', 1, new Tower(chess, Color.White));
+            setNewPiece('e', 2, new Tower(chess, Color.White));
+
+            setNewPiece('d', 8, new King(chess, Color.Black));
+            setNewPiece('d', 7, new Tower(chess, Color.Black));
+            setNewPiece('c', 8, new Tower(chess, Color.Black));
+            setNewPiece('c', 7, new Tower(chess, Color.Black));
+            setNewPiece('e', 8, new Tower(chess, Color.Black));
+            setNewPiece('e', 7, new Tower(chess, Color.Black));
 
         }
     }

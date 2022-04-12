@@ -7,6 +7,35 @@ namespace Chess
 {
     class Screen
     {
+
+        public static void printGame(ChessGame game)
+        {
+            Screen.PrintChessboard(game.chess);
+            printCatchedPieces(game);
+            Console.WriteLine($"\nTurn: {game.turn} | Player: {game.currentPlayer}");
+
+        }
+        public static void printCatchedPieces(ChessGame game)
+        {
+            Console.WriteLine("Pieces catcheds: ");
+            Console.Write("White: ");
+            printHashSet(game.catchedPieces(Color.White));
+            Console.Write("Black: ");
+            ConsoleColor aux = Console.ForegroundColor;
+            Console.ForegroundColor = ConsoleColor.Yellow;
+            printHashSet(game.catchedPieces(Color.Black));
+            Console.ForegroundColor = aux;
+        }
+        public static void printHashSet(HashSet<Piece> hash)
+        {
+            Console.Write("[");
+            foreach (Piece x in hash)
+            {
+                Console.Write(x + " ");
+            }
+            Console.Write("]\n");
+        }
+
         public static void PrintChessboard(Chessb chessboard)
         {
             for (int i = 0; i < chessboard.rows; i++)
