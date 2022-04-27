@@ -20,6 +20,10 @@ namespace Chessboard
         {
             qtnMoves++;
         }
+        public void DecreaceQtnMoves()
+        {
+            qtnMoves--;
+        }
         public bool PossibleMovesExist()
         {
             bool[,] mat = possibleMoves();

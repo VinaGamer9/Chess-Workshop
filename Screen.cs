@@ -14,6 +14,9 @@ namespace Chess
             printCatchedPieces(game);
             Console.WriteLine($"\nTurn: {game.turn} | Player: {game.currentPlayer}");
 
+            if (game.check) { System.Console.WriteLine("CHECK"); }
+
+
         }
         public static void printCatchedPieces(ChessGame game)
         {

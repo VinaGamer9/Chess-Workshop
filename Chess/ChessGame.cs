@@ -14,6 +14,7 @@ namespace ChessOnion
         public bool fineshed { get; private set; }
         private HashSet<Piece> pieces;
         private HashSet<Piece> capturedPieces;
+        public bool check { get; private set; }
 
         public ChessGame()
         {
@@ -26,7 +27,7 @@ namespace ChessOnion
             setPieces();
         }
 
-        public void moveMaker(Position origin, Position destiny)
+        public Piece moveMaker(Position origin, Position destiny)
         {
             Piece p = chess.removePiece(origin);
             p.increaceQtnMoves();
@@ -36,12 +37,36 @@ namespace ChessOnion
             {
                 capturedPieces.Add(catchedPiece);
             }
-
+            return catchedPiece;
 
         }
+
+        public void undoMove(Position origin, Position destiny, Piece catchedPiece)
+        {
+            Piece p = chess.removePiece(destiny);
+            p.DecreaceQtnMoves();
+            if (catchedPiece != null)
+            {
+                chess.insertPiece(catchedPiece, destiny);
+                capturedPieces.Remove(catchedPiece);
+            }
+            chess.insertPiece(p, origin);
+
+        }
+
         public void performsMove(Position origin, Position destiny)
         {
-            moveMaker(origin, destiny);
+            Piece catchedPiece = moveMaker(origin, destiny);
+
+            if (isInCheck(currentPlayer))
+            {
+                undoMove(origin, destiny, catchedPiece);
+                throw new ChessboardException("You can't put it self in check");
+            }
+            if (isInCheck(Enimy(currentPlayer))) { check = true; }
+            else { check = false; }
+
+
             turn++;
             changePlayer();
         }
@@ -98,6 +123,39 @@ namespace ChessOnion
             }
             aux.ExceptWith(catchedPieces(color));
             return aux;
+        }
+
+        private Color Enimy(Color color)
+        {
+            if (color == Color.White) { return Color.Black; }
+            else { return Color.White; }
+        }
+        private Piece King(Color color)
+        {
+            foreach (Piece x in piecesInGame(color))
+            {
+                if (x is King)
+                {
+                    return x;
+                }
+
+            }
+            return null;
+        }
+
+        public bool isInCheck(Color color)
+        {
+            Piece K = King(color);
+            if (K == null)
+            { throw new ChessboardException($"Have not king from color {color} in chessboard"); }
+
+            foreach (Piece x in piecesInGame(Enimy(color)))
+            {
+                bool[,] mat = x.possibleMoves();
+                if (mat[K.position.rows, K.position.columns])
+                { return true; }
+            }
+            return false;
         }
         public void setNewPiece(char column, int row, Piece piece)
         {
