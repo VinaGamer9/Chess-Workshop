@@ -12,11 +12,18 @@ namespace Chess
         {
             Screen.PrintChessboard(game.chess);
             printCatchedPieces(game);
-            Console.WriteLine($"\nTurn: {game.turn} | Player: {game.currentPlayer}");
 
-            if (game.check) { System.Console.WriteLine("CHECK"); }
+            if (!game.fineshed)
+            {
+                Console.WriteLine($"\nTurn: {game.turn} | Player: {game.currentPlayer}");
 
+                if (game.check) { System.Console.WriteLine("CHECK"); }
 
+            }
+            else
+            {
+                Console.WriteLine($"\nCHECKMATE!!! \nWinner: {game.currentPlayer}");
+            }
         }
         public static void printCatchedPieces(ChessGame game)
         {

@@ -66,9 +66,15 @@ namespace ChessOnion
             if (isInCheck(Enimy(currentPlayer))) { check = true; }
             else { check = false; }
 
-
-            turn++;
-            changePlayer();
+            if (checkMateTester(Enimy(currentPlayer)))
+            {
+                fineshed = true;
+            }
+            else
+            {
+                turn++;
+                changePlayer();
+            }
         }
         private void changePlayer()
         {
@@ -157,6 +163,36 @@ namespace ChessOnion
             }
             return false;
         }
+
+        public bool checkMateTester(Color color)
+        {
+            if (!isInCheck(color)) { return false; }
+
+            foreach (Piece x in piecesInGame(color))
+            {
+                bool[,] mat = x.possibleMoves();
+                for (int i = 0; i < chess.rows; i++)
+                {
+                    for (int j = 0; j < chess.columns; j++)
+                    {
+                        if (mat[i, j])
+                        {
+                            Position origin = x.position;
+                            Position destiny = new Position(i, j);
+                            Piece catchedPiece = moveMaker(origin, destiny);
+                            bool testCheck = isInCheck(color);
+                            undoMove(origin, destiny, catchedPiece);
+                            if (!testCheck)
+                            {
+                                return false;
+                            }
+                        }
+                    }
+                }
+            }
+            return true;
+        }
+
         public void setNewPiece(char column, int row, Piece piece)
         {
             chess.insertPiece(piece, new ChessPosition(column, row).toPosition());
@@ -165,19 +201,12 @@ namespace ChessOnion
         public void setPieces()
         {
 
-            setNewPiece('d', 1, new King(chess, Color.White));
-            setNewPiece('d', 2, new Tower(chess, Color.White));
-            setNewPiece('c', 1, new Tower(chess, Color.White));
-            setNewPiece('c', 2, new Tower(chess, Color.White));
-            setNewPiece('e', 1, new Tower(chess, Color.White));
-            setNewPiece('e', 2, new Tower(chess, Color.White));
+            setNewPiece('a', 1, new King(chess, Color.White));
 
             setNewPiece('d', 8, new King(chess, Color.Black));
-            setNewPiece('d', 7, new Tower(chess, Color.Black));
+            setNewPiece('h', 2, new Tower(chess, Color.Black));
             setNewPiece('c', 8, new Tower(chess, Color.Black));
-            setNewPiece('c', 7, new Tower(chess, Color.Black));
-            setNewPiece('e', 8, new Tower(chess, Color.Black));
-            setNewPiece('e', 7, new Tower(chess, Color.Black));
+            setNewPiece('f', 8, new Tower(chess, Color.Black));
 
         }
     }

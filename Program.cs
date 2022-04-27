@@ -46,7 +46,11 @@ namespace Chess
                     }
 
                 }
+                Console.Clear();
+                Screen.printGame(game);
+
             }
+
 
 
             catch (ChessboardException e)
