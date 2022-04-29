@@ -37,6 +37,24 @@ namespace ChessOnion
             {
                 capturedPieces.Add(catchedPiece);
             }
+            // # Special Move menur Roque
+            if (p is King && destiny.columns == origin.columns + 2)
+            {
+                Position originT = new Position(origin.rows, origin.columns + 3);
+                Position destinyT = new Position(origin.rows, origin.columns + 1);
+                Piece T = chess.removePiece(originT);
+                T.increaceQtnMoves();
+                chess.insertPiece(T, destinyT);
+            }
+            // # Special Move Major Roque
+            if (p is King && destiny.columns == origin.columns - 2)
+            {
+                Position originT = new Position(origin.rows, origin.columns - 4);
+                Position destinyT = new Position(origin.rows, origin.columns - 1);
+                Piece T = chess.removePiece(originT);
+                T.increaceQtnMoves();
+                chess.insertPiece(T, destinyT);
+            }
             return catchedPiece;
 
         }
@@ -44,13 +62,32 @@ namespace ChessOnion
         public void undoMove(Position origin, Position destiny, Piece catchedPiece)
         {
             Piece p = chess.removePiece(destiny);
-            p.DecreaceQtnMoves();
+            p.decreaceQtnMoves();
             if (catchedPiece != null)
             {
                 chess.insertPiece(catchedPiece, destiny);
                 capturedPieces.Remove(catchedPiece);
             }
             chess.insertPiece(p, origin);
+
+            // # Special Move menur Roque
+            if (p is King && destiny.columns == origin.columns + 2)
+            {
+                Position originT = new Position(origin.rows, origin.columns + 3);
+                Position destinyT = new Position(origin.rows, origin.columns + 1);
+                Piece T = chess.removePiece(destinyT);
+                T.decreaceQtnMoves();
+                chess.insertPiece(T, originT);
+            }
+            // # Special Move Major Roque
+            if (p is King && destiny.columns == origin.columns - 2)
+            {
+                Position originT = new Position(origin.rows, origin.columns - 4);
+                Position destinyT = new Position(origin.rows, origin.columns - 1);
+                Piece T = chess.removePiece(destinyT);
+                T.decreaceQtnMoves();
+                chess.insertPiece(T, originT);
+            }
 
         }
 
@@ -91,7 +128,7 @@ namespace ChessOnion
             {
                 throw new ChessboardException("The pice selected is not yours");
             }
-            if (!chess.piece(pos).PossibleMovesExist())
+            if (!chess.piece(pos).possibleMovesExist())
             {
                 throw new ChessboardException("not have any moves for this piece");
             }
@@ -207,7 +244,7 @@ namespace ChessOnion
             setNewPiece('g', 1, new Horse(chess, Color.White));
             setNewPiece('c', 1, new Bishop(chess, Color.White));
             setNewPiece('f', 1, new Bishop(chess, Color.White));
-            setNewPiece('e', 1, new King(chess, Color.White));
+            setNewPiece('e', 1, new King(chess, Color.White, this));
             setNewPiece('d', 1, new Queen(chess, Color.White));
             setNewPiece('a', 2, new Pawn(chess, Color.White));
             setNewPiece('b', 2, new Pawn(chess, Color.White));
@@ -226,7 +263,7 @@ namespace ChessOnion
             setNewPiece('g', 8, new Horse(chess, Color.Black));
             setNewPiece('c', 8, new Bishop(chess, Color.Black));
             setNewPiece('f', 8, new Bishop(chess, Color.Black));
-            setNewPiece('e', 8, new King(chess, Color.Black));
+            setNewPiece('e', 8, new King(chess, Color.Black, this));
             setNewPiece('d', 8, new Queen(chess, Color.Black));
             setNewPiece('a', 7, new Pawn(chess, Color.Black));
             setNewPiece('b', 7, new Pawn(chess, Color.Black));

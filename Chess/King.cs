@@ -5,10 +5,11 @@ namespace ChessOnion
 {
     class King : Piece
     {
-        public King(Chessb chessboard, Color color)
+        private ChessGame game;
+        public King(Chessb chessboard, Color color, ChessGame game)
         : base(color, chessboard)
         {
-
+            this.game = game;
         }
         public override string ToString()
         {
@@ -18,6 +19,11 @@ namespace ChessOnion
         {
             Piece p = chessboard.piece(pos);
             return p == null || p.color != this.color;
+        }
+        private bool towerTestForRoque(Position pos)
+        {
+            Piece p = chessboard.piece(pos);
+            return p != null && p is Tower && p.color == color && p.qtnMoves == 0;
         }
         public override bool[,] possibleMoves()
         {
@@ -73,6 +79,36 @@ namespace ChessOnion
             {
                 mat[pos.rows, pos.columns] = true;
             }
+
+            // # Special Move Roque
+
+            if (qtnMoves == 0 && !game.check)
+            {
+                // #Special move menur Roque 
+                Position posT1 = new Position(position.rows, position.columns + 3);
+                if (towerTestForRoque(posT1))
+                {
+                    Position p1 = new Position(position.rows, position.columns + 1);
+                    Position p2 = new Position(position.rows, position.columns + 2);
+                    if (chessboard.piece(p1) == null && chessboard.piece(p2) == null)
+                    {
+                        mat[position.rows, position.columns + 2] = true;
+                    }
+                }
+                // #Special move Biger Roque 
+                Position posT2 = new Position(position.rows, position.columns - 4);
+                if (towerTestForRoque(posT2))
+                {
+                    Position p1 = new Position(position.rows, position.columns - 1);
+                    Position p2 = new Position(position.rows, position.columns - 2);
+                    Position p3 = new Position(position.rows, position.columns - 3);
+                    if (chessboard.piece(p1) == null && chessboard.piece(p2) == null && chessboard.piece(p3) == null)
+                    {
+                        mat[position.rows, position.columns - 2] = true;
+                    }
+                }
+            }
+
             return mat;
         }
     }
