@@ -201,12 +201,42 @@ namespace ChessOnion
         public void setPieces()
         {
 
-            setNewPiece('a', 1, new King(chess, Color.White));
+            setNewPiece('a', 1, new Tower(chess, Color.White));
+            setNewPiece('h', 1, new Tower(chess, Color.White));
+            setNewPiece('b', 1, new Horse(chess, Color.White));
+            setNewPiece('g', 1, new Horse(chess, Color.White));
+            setNewPiece('c', 1, new Bishop(chess, Color.White));
+            setNewPiece('f', 1, new Bishop(chess, Color.White));
+            setNewPiece('e', 1, new King(chess, Color.White));
+            setNewPiece('d', 1, new Queen(chess, Color.White));
+            setNewPiece('a', 2, new Pawn(chess, Color.White));
+            setNewPiece('b', 2, new Pawn(chess, Color.White));
+            setNewPiece('c', 2, new Pawn(chess, Color.White));
+            setNewPiece('d', 2, new Pawn(chess, Color.White));
+            setNewPiece('e', 2, new Pawn(chess, Color.White));
+            setNewPiece('f', 2, new Pawn(chess, Color.White));
+            setNewPiece('g', 2, new Pawn(chess, Color.White));
+            setNewPiece('h', 2, new Pawn(chess, Color.White));
 
-            setNewPiece('d', 8, new King(chess, Color.Black));
-            setNewPiece('h', 2, new Tower(chess, Color.Black));
-            setNewPiece('c', 8, new Tower(chess, Color.Black));
-            setNewPiece('f', 8, new Tower(chess, Color.Black));
+
+
+            setNewPiece('a', 8, new Tower(chess, Color.Black));
+            setNewPiece('h', 8, new Tower(chess, Color.Black));
+            setNewPiece('b', 8, new Horse(chess, Color.Black));
+            setNewPiece('g', 8, new Horse(chess, Color.Black));
+            setNewPiece('c', 8, new Bishop(chess, Color.Black));
+            setNewPiece('f', 8, new Bishop(chess, Color.Black));
+            setNewPiece('e', 8, new King(chess, Color.Black));
+            setNewPiece('d', 8, new Queen(chess, Color.Black));
+            setNewPiece('a', 7, new Pawn(chess, Color.Black));
+            setNewPiece('b', 7, new Pawn(chess, Color.Black));
+            setNewPiece('c', 7, new Pawn(chess, Color.Black));
+            setNewPiece('d', 7, new Pawn(chess, Color.Black));
+            setNewPiece('e', 7, new Pawn(chess, Color.Black));
+            setNewPiece('f', 7, new Pawn(chess, Color.Black));
+            setNewPiece('g', 7, new Pawn(chess, Color.Black));
+            setNewPiece('h', 7, new Pawn(chess, Color.Black));
+
 
         }
     }
