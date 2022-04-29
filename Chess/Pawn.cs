@@ -5,10 +5,11 @@ namespace ChessOnion
 {
     class Pawn : Piece
     {
-        public Pawn(Chessb chessboard, Color color)
+        private ChessGame game;
+        public Pawn(Chessb chessboard, Color color, ChessGame game)
         : base(color, chessboard)
         {
-
+            this.game = game;
         }
         public override string ToString()
         {
@@ -60,6 +61,23 @@ namespace ChessOnion
                     mat[pos.rows, pos.columns] = true;
                 }
 
+                // Special Move en Passant 
+                if (position.rows == 3)
+                {
+                    Position left = new Position(position.rows, position.columns - 1);
+                    if (chessboard.positionValid(left) && existEnimy(left)
+                        && chessboard.piece(left) == game.vulnerableEnPassant)
+                    {
+                        mat[left.rows - 1, left.columns] = true;
+                    }
+                    Position right = new Position(position.rows, position.columns + 1);
+                    if (chessboard.positionValid(right) && existEnimy(right)
+                        && chessboard.piece(right) == game.vulnerableEnPassant)
+                    {
+                        mat[right.rows - 1, right.columns] = true;
+                    }
+                }
+
             }
             else
             {
@@ -84,6 +102,22 @@ namespace ChessOnion
                 if (chessboard.positionValid(pos) && existEnimy(pos))
                 {
                     mat[pos.rows, pos.columns] = true;
+                }
+                // Special Move en Passant 
+                if (position.rows == 4)
+                {
+                    Position left = new Position(position.rows, position.columns - 1);
+                    if (chessboard.positionValid(left) && existEnimy(left)
+                        && chessboard.piece(left) == game.vulnerableEnPassant)
+                    {
+                        mat[left.rows + 1, left.columns] = true;
+                    }
+                    Position right = new Position(position.rows, position.columns + 1);
+                    if (chessboard.positionValid(right) && existEnimy(right)
+                        && chessboard.piece(right) == game.vulnerableEnPassant)
+                    {
+                        mat[right.rows + 1, right.columns] = true;
+                    }
                 }
 
             }

@@ -15,6 +15,7 @@ namespace ChessOnion
         private HashSet<Piece> pieces;
         private HashSet<Piece> capturedPieces;
         public bool check { get; private set; }
+        public Piece vulnerableEnPassant { get; private set; }
 
         public ChessGame()
         {
@@ -22,6 +23,8 @@ namespace ChessOnion
             turn = 1;
             currentPlayer = Color.White;
             fineshed = false;
+            check = false;
+            vulnerableEnPassant = null;
             pieces = new HashSet<Piece>();
             capturedPieces = new HashSet<Piece>();
             setPieces();
@@ -55,6 +58,27 @@ namespace ChessOnion
                 T.increaceQtnMoves();
                 chess.insertPiece(T, destinyT);
             }
+
+            // #Special Move en Passant
+            if (p is Pawn)
+            {
+                if (origin.columns != destiny.columns && catchedPiece == null)
+                {
+                    Position posP;
+                    if (p.color == Color.White)
+                    {
+                        posP = new Position(destiny.rows + 1, destiny.columns);
+
+                    }
+                    else
+                    {
+                        posP = new Position(destiny.rows - 1, destiny.columns);
+                    }
+                    catchedPiece = chess.removePiece(posP);
+                    capturedPieces.Add(catchedPiece);
+                }
+            }
+
             return catchedPiece;
 
         }
@@ -88,6 +112,20 @@ namespace ChessOnion
                 T.decreaceQtnMoves();
                 chess.insertPiece(T, originT);
             }
+            // # Special Move en passant
+            if (p is Pawn)
+            {
+                if (origin.columns != destiny.columns && catchedPiece == vulnerableEnPassant)
+                {
+                    Piece pawn = chess.removePiece(destiny);
+                    Position posP;
+                    if (pawn.color == Color.White)
+                    { posP = new Position(3, destiny.columns); }
+                    else
+                    { posP = new Position(4, destiny.columns); }
+                    chess.insertPiece(pawn, posP);
+                }
+            }
 
         }
 
@@ -112,6 +150,15 @@ namespace ChessOnion
                 turn++;
                 changePlayer();
             }
+
+            Piece p = chess.piece(destiny);
+
+            // #Special Move en Passant
+            if (p is Pawn && (destiny.rows == origin.rows - 2 || destiny.rows == origin.rows + 2))
+            {
+                vulnerableEnPassant = p;
+            }
+            else { vulnerableEnPassant = null; }
         }
         private void changePlayer()
         {
@@ -246,14 +293,14 @@ namespace ChessOnion
             setNewPiece('f', 1, new Bishop(chess, Color.White));
             setNewPiece('e', 1, new King(chess, Color.White, this));
             setNewPiece('d', 1, new Queen(chess, Color.White));
-            setNewPiece('a', 2, new Pawn(chess, Color.White));
-            setNewPiece('b', 2, new Pawn(chess, Color.White));
-            setNewPiece('c', 2, new Pawn(chess, Color.White));
-            setNewPiece('d', 2, new Pawn(chess, Color.White));
-            setNewPiece('e', 2, new Pawn(chess, Color.White));
-            setNewPiece('f', 2, new Pawn(chess, Color.White));
-            setNewPiece('g', 2, new Pawn(chess, Color.White));
-            setNewPiece('h', 2, new Pawn(chess, Color.White));
+            setNewPiece('a', 2, new Pawn(chess, Color.White, this));
+            setNewPiece('b', 2, new Pawn(chess, Color.White, this));
+            setNewPiece('c', 2, new Pawn(chess, Color.White, this));
+            setNewPiece('d', 2, new Pawn(chess, Color.White, this));
+            setNewPiece('e', 2, new Pawn(chess, Color.White, this));
+            setNewPiece('f', 2, new Pawn(chess, Color.White, this));
+            setNewPiece('g', 2, new Pawn(chess, Color.White, this));
+            setNewPiece('h', 2, new Pawn(chess, Color.White, this));
 
 
 
@@ -265,14 +312,14 @@ namespace ChessOnion
             setNewPiece('f', 8, new Bishop(chess, Color.Black));
             setNewPiece('e', 8, new King(chess, Color.Black, this));
             setNewPiece('d', 8, new Queen(chess, Color.Black));
-            setNewPiece('a', 7, new Pawn(chess, Color.Black));
-            setNewPiece('b', 7, new Pawn(chess, Color.Black));
-            setNewPiece('c', 7, new Pawn(chess, Color.Black));
-            setNewPiece('d', 7, new Pawn(chess, Color.Black));
-            setNewPiece('e', 7, new Pawn(chess, Color.Black));
-            setNewPiece('f', 7, new Pawn(chess, Color.Black));
-            setNewPiece('g', 7, new Pawn(chess, Color.Black));
-            setNewPiece('h', 7, new Pawn(chess, Color.Black));
+            setNewPiece('a', 7, new Pawn(chess, Color.Black, this));
+            setNewPiece('b', 7, new Pawn(chess, Color.Black, this));
+            setNewPiece('c', 7, new Pawn(chess, Color.Black, this));
+            setNewPiece('d', 7, new Pawn(chess, Color.Black, this));
+            setNewPiece('e', 7, new Pawn(chess, Color.Black, this));
+            setNewPiece('f', 7, new Pawn(chess, Color.Black, this));
+            setNewPiece('g', 7, new Pawn(chess, Color.Black, this));
+            setNewPiece('h', 7, new Pawn(chess, Color.Black, this));
 
 
         }
